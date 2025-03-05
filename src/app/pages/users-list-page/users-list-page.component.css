@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td,
+thead {
+  border-bottom: 1px solid var(--p-text-muted-color);
+}
+
+th,
+td {
+  padding: 1rem;
+}
+
+tbody tr {
+  font-weight: normal;
+}

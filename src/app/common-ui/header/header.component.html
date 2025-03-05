@@ -1,0 +1,28 @@
+<header *transloco="let t">
+  <div class="header__inner surface-section">
+    <div class="header__top">
+      <a [routerLink]="['/welcome.jhtml']" class="logo">LOGO</a>
+      <div class="flex flex-column">
+        <div class="flex flex-row">
+          <div><span>{{ t('header.welcome', {name: login}) }}&nbsp;</span></div>
+          <div><a [routerLink]="['/login.jhtml']" [queryParams]="{logout: ''}">{{ t('header.link.logout') }}</a></div>
+        </div>
+        <div class="text-right">
+          <app-language-switcher></app-language-switcher>
+        </div>
+      </div>
+    </div>
+    <div class="pt-3">
+      <nav class="header__menu">
+        <ul>
+          <li>
+            <a [routerLink]="['/welcome.jhtml']">{{ t('header.link.home') }}</a>
+          </li>
+          <li *hasRole="'ADMIN'">
+            <a [routerLink]="['/userslist.jhtml']">{{ t('header.link.users') }}</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

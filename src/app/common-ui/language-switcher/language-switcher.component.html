@@ -1,0 +1,7 @@
+<ng-container *transloco="let t">
+  <select (change)="onChange($event)" id="lang">
+    @for (lang of languages; track lang) {
+      <option [value]="lang" [selected]="lang === currentLang">{{ t(lang) }}</option>
+    }
+  </select>
+</ng-container>

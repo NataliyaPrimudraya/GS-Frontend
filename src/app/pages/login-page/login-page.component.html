@@ -1,0 +1,28 @@
+<div class="flex h-30rem" *transloco="let t">
+  <app-language-switcher></app-language-switcher>
+  <div class="form form--login surface-card shadow-2 border-round">
+    <h1>{{ t('title.authorization') }}</h1>
+    @if (isErrorOccurred()) {
+      <div class="error">
+        {{ t('error.wrong.credentials') }}
+      </div>
+    }
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" action="/login.jhtml" method="post">
+      <div class="form__group">
+        <p-floatlabel variant="on">
+          <input formControlName="login" pInputText id="login"/>
+          <label for="login">{{ t('label.login') }}</label>
+        </p-floatlabel>
+      </div>
+      <div class="form__group">
+        <p-floatlabel variant="on">
+          <input formControlName="password" pInputText id="password" type="password"/>
+          <label for="password">{{ t('label.password') }}</label>
+        </p-floatlabel>
+      </div>
+      <div class="form__group">
+        <p-button label="{{ t('button.enter') }}" type="submit" icon="pi pi-user"/>
+      </div>
+    </form>
+  </div>
+</div>

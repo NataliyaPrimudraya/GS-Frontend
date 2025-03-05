@@ -1,0 +1,106 @@
+<div class="container">
+  <app-header></app-header>
+  <main *transloco="let t">
+    <div class="form form--login-edit surface-card shadow-2 border-round">
+      @if (id == null) {
+        <h1>{{ t('title.user.add') }}</h1>
+      } @else {
+        <h1>{{ t('title.user.edit') }}</h1>
+      }
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" action="" method="post">
+        <input formControlName="id" type="hidden">
+        <div class="form__group">
+          <label for="login" class="m-auto">{{ t('label.user.login') }}</label>
+          <input id="login" formControlName="login" pInputText autocomplete="off"/>
+          @if (form.get('login')?.invalid && (form.get('login')?.dirty || form.get('login')?.touched)) {
+            <small class="error">
+              @if (form.get('login')?.errors?.['required']) {
+                <span>Обязательное поле</span>
+              }
+              @if (form.get('login')?.errors?.['minlength'] || form.get('login')?.errors?.['maxlength']) {
+                <span>Логин должен быть от 4 до 20 символов</span>
+              }
+            </small>
+          }
+        </div>
+        <div class="form__group">
+          <label for="password">{{ t('label.user.password') }}</label>
+          <input id="password" formControlName="password" pInputText type="password" autocomplete="new-password">
+          @if (form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)) {
+            <small class="error">
+              @if (form.get('password')?.errors?.['required']) {
+                <span>Обязательное поле</span>
+              }
+              @if (form.get('password')?.errors?.['minlength'] || form.get('password')?.errors?.['maxlength']) {
+                <span>Пароль должен быть от 8 до 64 символов</span>
+              }
+            </small>
+          }
+        </div>
+        <div class="form__group">
+          <label for="name">{{ t('label.user.name') }}</label>
+          <input id="name" formControlName="name" pInputText>
+          @if (form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)) {
+            <small class="error">
+              @if (form.get('name')?.errors?.['required']) {
+                <span>Обязательное поле</span>
+              }
+            </small>
+          }
+        </div>
+        <div class="form__group">
+          <label for="birthdate" class="block">{{ t('label.user.birthdate') }}</label>
+          <input id="birthdate" formControlName="birthdate" pInputText type="date">
+        </div>
+        <div class="form__group">
+          <label for="age">{{ t('label.user.age') }}</label>
+          <p-inputNumber id="age" formControlName="age" class="block"></p-inputNumber>
+          @if (form.get('age')?.invalid && (form.get('age')?.dirty || form.get('age')?.touched)) {
+            <small class="error">
+              @if (form.get('age')?.errors?.['required']) {
+                <span>Обязательное поле</span>
+              }
+              @if (form.get('age')?.errors?.['min']) {
+                <span>Возраст должен быть больше 18</span>
+              }
+            </small>
+          }
+        </div>
+        <div class="form__group">
+          <label for="salary">{{ t('label.user.salary') }}</label>
+          <p-inputNumber id="salary" class="block" formControlName="salary" mode="decimal" [minFractionDigits]="2"
+                         [maxFractionDigits]="5"></p-inputNumber>
+          @if (form.get('salary')?.invalid && (form.get('salary')?.dirty || form.get('salary')?.touched)) {
+            <small class="error">
+              @if (form.get('salary')?.errors?.['required']) {
+                <span>Обязательное поле</span>
+              }
+              @if (form.get('salary')?.errors?.['min']) {
+                <span>Зарплата должна быть больше 746</span>
+              }
+            </small>
+          }
+        </div>
+        <div class="form__group text-left w-fit mx-auto">
+          @for (role of roles; track $index) {
+            <div>
+              <p-checkbox [inputId]="role" formControlName="roles" [value]="role"/>
+              <label [for]="role" class="ml-2"> {{ t(role) }} </label>
+            </div>
+          }
+          @if (form.get('roles')?.invalid && (form.get('roles')?.dirty || form.get('roles')?.touched)) {
+            <small class="error">
+              @if (form.get('roles')?.errors?.['required']) {
+                <span>Обязательное поле</span>
+              }
+            </small>
+          }
+        </div>
+        <div class="form__group">
+          <p-button label="{{ t('button.confirm') }}" type="submit" icon="pi pi-check" [disabled]="!form.valid"/>
+        </div>
+      </form>
+    </div>
+  </main>
+  <app-footer></app-footer>
+</div>

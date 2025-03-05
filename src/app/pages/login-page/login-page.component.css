@@ -1,0 +1,21 @@
+.form--login {
+  width: 400px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form--login h1 {
+  margin-bottom: 0.5rem;
+}
+
+.form__group {
+  padding-bottom: 1.5rem;
+}
+
+.form--login .error {
+  height: 2rem;
+  color: var(--p-red-500);
+  padding-bottom: 1rem;
+}

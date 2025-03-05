@@ -1,0 +1,56 @@
+<div class="container">
+  <app-header></app-header>
+  <main *transloco="let t">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>{{ t('label.user.login') }}</th>
+        <th>{{ t('label.user.name') }}</th>
+        <th>{{ t('label.user.age') }}</th>
+        <th>{{ t('label.user.birthdate') }}</th>
+        <th>{{ t('label.user.salary') }}</th>
+        <th>{{ t('label.user.roles') }}</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.id) {
+          <tr>
+            <th>{{ user.id }}</th>
+            <th>{{ user.login }}</th>
+            <th>{{ user.name }}</th>
+            <th>{{ user.age }}</th>
+            <th>{{ user.birthdate | date: "dd MMM yyyy" }}</th>
+            <th>{{ user.salary }}</th>
+            <th>
+              @for (role of user.roles; track $index) {
+                <span class="block">{{ t(role) }}</span>
+              }
+            </th>
+            <th>
+              <a title="{{ t('tooltip.edit') }}" class="pi pi-cog"
+                 [routerLink]="['/loginedit.jhtml']"
+                 [queryParams]="{id: user.id}">
+              </a>
+            </th>
+            <th>
+              <a
+                title="{{ t('tooltip.delete') }}" class="pi pi-trash"
+                [routerLink]="['/loginedit.jhtml']"
+                [queryParams]="{id: user.id, delete: ''}">
+              </a>
+            </th>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <div class="pt-3 text-center">
+      <button
+        pButton class="w-2"
+        label="{{ t('button.add.user') }}" icon="pi pi-user-plus"
+        [routerLink]="['/loginedit.jhtml']"
+        [queryParams]="{add: ''}"></button>
+    </div>
+  </main>
+  <app-footer></app-footer>
+</div>

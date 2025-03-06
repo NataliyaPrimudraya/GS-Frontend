@@ -1,0 +1,11 @@
+<div class="flex h-30rem" *transloco="let t">
+  <app-language-switcher></app-language-switcher>
+  <div class="form form--logout surface-card shadow-2 border-round">
+    <h1 class="max-w-20rem">{{ t('title.logout') }}</h1>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form__group">
+        <p-button label="{{ t('button.confirm') }}" type="submit"/>
+      </div>
+    </form>
+  </div>
+</div>

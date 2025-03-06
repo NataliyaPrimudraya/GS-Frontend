@@ -6,6 +6,7 @@
   "title.users": "Пользователи",
   "title.user.edit": "Редактирование пользователя",
   "title.user.add": "Добавление пользователя",
+  "title.logout" : "Подтвердите выход из системы",
   "label.login": "Логин",
   "label.password": "Пароль",
   "button.enter": "Войти",

@@ -6,6 +6,7 @@
   "title.users" : "Users",
   "title.user.edit" : "Edit profile",
   "title.user.add" : "Create a new user",
+  "title.logout" : "Confirm logout",
   "label.login" : "Login",
   "label.password" : "Password",
   "button.enter" : "Login",

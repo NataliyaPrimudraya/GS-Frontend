@@ -28,6 +28,7 @@ export class LoginPageComponent implements OnInit {
     password: new FormControl<string | null>(null, Validators.required)
   })
   isErrorOccurred = signal<boolean>(false);
+  isLogoutOccurred = signal<boolean>(false);
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -36,7 +37,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.route.snapshot.queryParamMap.get('logout') != null) {
-      this.authService.logout();
+      this.isLogoutOccurred = signal<boolean>(true);
     }
   }
 

@@ -5,7 +5,7 @@
       <div class="flex flex-column">
         <div class="flex flex-row">
           <div><span>{{ t('header.welcome', {name: login}) }}&nbsp;</span></div>
-          <div><a [routerLink]="['/login.jhtml']" [queryParams]="{logout: ''}">{{ t('header.link.logout') }}</a></div>
+          <div><a [routerLink]="['/logout.jhtml']">{{ t('header.link.logout') }}</a></div>
         </div>
         <div class="text-right">
           <app-language-switcher></app-language-switcher>

@@ -2,11 +2,14 @@
   <app-language-switcher></app-language-switcher>
   <div class="form form--login surface-card shadow-2 border-round">
     <h1>{{ t('title.authorization') }}</h1>
-    @if (isErrorOccurred()) {
-      <div class="error">
+    <div class="error">
+      @if (isErrorOccurred()) {
         {{ t('error.wrong.credentials') }}
-      </div>
-    }
+      }
+      @if (isLogoutOccurred()) {
+        {{ t('warning.logout') }}
+      }
+    </div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" action="/login.jhtml" method="post">
       <div class="form__group">
         <p-floatlabel variant="on">

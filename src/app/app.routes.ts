@@ -5,6 +5,7 @@ import {UsersListPageComponent} from './pages/users-list-page/users-list-page.co
 import {LoginEditPageComponent} from './pages/login-edit-page/login-edit-page.component';
 import {canActivateAuth} from './auth/access.guard';
 import {canActivateAdmin} from './security/admin.guard';
+import {LogoutPageComponent} from './pages/logout-page/logout-page.component';
 
 export const routes: Routes = [
   {path: 'login.jhtml', component: LoginPageComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
       {path: 'welcome.jhtml', component: WelcomePageComponent},
       {path: 'userslist.jhtml', component: UsersListPageComponent, canActivate: [canActivateAdmin]},
       {path: 'loginedit.jhtml', component: LoginEditPageComponent, canActivate: [canActivateAdmin]},
+      {path: 'logout.jhtml', component: LogoutPageComponent},
       {path: '**',  redirectTo: 'welcome.jhtml'},
     ],
     canActivate: [canActivateAuth]

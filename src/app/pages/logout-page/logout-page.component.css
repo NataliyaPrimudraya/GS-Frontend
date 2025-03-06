@@ -1,0 +1,10 @@
+.form--logout {
+  width: 400px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.form__group {
+  padding-bottom: 1.5rem;
+}

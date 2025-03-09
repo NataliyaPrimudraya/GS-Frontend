@@ -27,7 +27,8 @@ export class HasRoleDirective implements OnInit {
         let index = -1
         for (const role of userRoles) {
           if (this.hasRole.indexOf(role) !== index) {
-            index = this.hasRole.indexOf(role)
+            index = this.hasRole.indexOf(role);
+            break;
           }
         }
         if (index == -1) {

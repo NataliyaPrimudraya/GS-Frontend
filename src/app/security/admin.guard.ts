@@ -8,7 +8,7 @@ export const canActivateAdmin = () => {
   if (!userRoles) {
     return inject(Router).createUrlTree(['/welcome.jhtml']);
   } else {
-    if (userRoles.find(role => role == 'ADMIN')) {
+    if (userRoles.find((role: string) => role == 'ADMIN')) {
       return true;
     }
   }

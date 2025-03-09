@@ -1,65 +1,36 @@
 import {Injectable} from '@angular/core';
 import {User} from '../interfaces/user.interface';
+import {HttpClient} from '@angular/common/http';
+import {firstValueFrom, lastValueFrom} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  users: User[] = [
-    {
-      id: 1,
-      name: 'John',
-      login: 'root',
-      password: 'root',
-      age: 22,
-      birthdate: new Date('1970-01-01'),
-      salary: 2000,
-      roles: ['ADMIN'],
-    },
-    {
-      id: 2,
-      name: 'Mary',
-      login: 'login',
-      password: 'password',
-      age: 22,
-      birthdate: new Date('1970-01-02'),
-      salary: 2000,
-      roles: ['USER', 'MANAGER'],
-    }
-  ]
 
-  idCount = 2;
+  baseApiUrl: string = "http://localhost:8080/webdispatch/api/users";
 
-  getUserById(id: number): User | null {
-    let user = this.users.find((user) => user.id == id);
-    return user ? user : null;
+  constructor(private http: HttpClient) {
   }
 
-  getAllUsers(): User[] {
-    return this.users;
+  async getUserById(id: number) {
+    return await firstValueFrom(this.http.get<User>(`${this.baseApiUrl}/${id}`));
   }
 
-  getUserByLoginAndPassword(login: string, password: string): User | null {
-    let user = this.users.find((user) => user.login == login && user.password == password);
-    return user ? user : null;
+  async getAllUsers() {
+    return await lastValueFrom(this.http.get<User[]>(this.baseApiUrl))
   }
 
-  addUser(user: User): void {
-    this.idCount++;
-    user.id = this.idCount;
-    this.users.push(user);
+  async addUser(user: User) {
+    await firstValueFrom(this.http.post(this.baseApiUrl, user))
   }
 
-  updateUser(user: User): void {
-    const index = this.users.findIndex(u => u.id == user.id);
-    if (index !== -1) {
-      this.users[index] = user;
-    }
+  async updateUser(user: User) {
+    await firstValueFrom(this.http.put(this.baseApiUrl, user))
   }
 
-  deleteUser(id: number): void {
-    const index = this.users.findIndex(u => u.id == id);
-    this.users.splice(index, 1);
+  async deleteUser(id: number) {
+    await firstValueFrom(this.http.delete(`${this.baseApiUrl}/${id}`))
   }
 
 }

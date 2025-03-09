@@ -1,13 +1,17 @@
 import {Injectable} from '@angular/core';
-import {UserService} from '../data/services/user.service';
 import {CookieService} from 'ngx-cookie-service';
+import {HttpClient} from '@angular/common/http';
+import {AuthenticationResponse} from './authentication.interface';
+import {firstValueFrom} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor(private userService: UserService,
+  baseApiUrl: string = "http://localhost:8080/webdispatch/api/auth";
+
+  constructor(private http: HttpClient,
               private cookieService: CookieService) {
   }
 
@@ -15,18 +19,15 @@ export class AuthenticationService {
     return this.cookieService.get("user") !== '';
   }
 
-  login(payload: { login: string, password: string }) {
-    const user = this.userService.getUserByLoginAndPassword(payload.login, payload.password);
-    if (user) {
-      this.cookieService.set("user", String(user.id));
-      this.cookieService.set("login", payload.login);
-      return true;
-    }
-    return false;
+  async login(payload: { login: string, password: string }) {
+    let response: AuthenticationResponse = await firstValueFrom(this.http.post<AuthenticationResponse>(`${this.baseApiUrl}/authenticate`, payload))
+    this.cookieService.set("user", String(response.id));
+    this.cookieService.set("login", response.login);
+    this.cookieService.set("roles", JSON.stringify(response.roles));
+    return this.isAuthenticated;
   }
 
   logout(): void {
-    this.cookieService.delete("user");
-    this.cookieService.delete("login");
+    this.cookieService.deleteAll()
   }
 }

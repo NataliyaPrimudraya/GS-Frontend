@@ -4,7 +4,7 @@ export interface User {
   password: string,
   name: string,
   age: number,
-  birthdate: Date,
+  birthdate: string,
   salary: number,
   roles: string[],
 }

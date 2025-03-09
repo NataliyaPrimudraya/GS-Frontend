@@ -24,8 +24,8 @@ import {LanguageSwitcherComponent} from '../../common-ui/language-switcher/langu
 })
 export class LoginPageComponent implements OnInit {
   form: FormGroup = new FormGroup({
-    login: new FormControl<string | null>(null, Validators.required),
-    password: new FormControl<string | null>(null, Validators.required)
+    login: new FormControl<string>('', Validators.required),
+    password: new FormControl<string>('', Validators.required)
   })
   isErrorOccurred = signal<boolean>(false);
   isLogoutOccurred = signal<boolean>(false);
@@ -43,9 +43,11 @@ export class LoginPageComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      if (this.authService.login(this.form.value)) {
-        this.router.navigate(['/welcome.jhtml']);
-      }
+      this.authService.login(this.form.value).then((result: boolean) => {
+        if (result) {
+          this.router.navigate(['/welcome.jhtml']);
+        }
+      })
     } else {
       this.isErrorOccurred.set(true);
     }

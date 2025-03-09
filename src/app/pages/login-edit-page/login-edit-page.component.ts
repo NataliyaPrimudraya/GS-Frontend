@@ -46,32 +46,40 @@ export class LoginEditPageComponent implements OnInit {
       this.userService.deleteUser(this.id);
       this.router.navigate(['/userslist.jhtml']);
     }
-    this.user = this.userService.getUserById(this.id);
     this.form = this.fb.group({
-      id: [this.user?.id],
-      login: [this.user?.login, {
+      id: [null],
+      login: [null, {
         validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
-        updateOn: "blur"
       }],
-      password: [this.user?.password, {
+      password: [null, {
         validators: [Validators.required, Validators.minLength(8), Validators.maxLength(64)],
         updateOn: "blur"
       }],
-      name: [this.user?.name, {validators: Validators.required, updateOn: "blur"}],
-      age: [this.user?.age, {validators: [Validators.required, Validators.min(19)], updateOn: "blur"}],
-      birthdate: [this.user ? formatDate(this.user.birthdate, 'yyyy-MM-dd', 'en-US') : null],
-      salary: [this.user?.salary, {validators: [Validators.required, Validators.min(726)], updateOn: "blur"}],
-      roles: [this.user?.roles, {validators: Validators.required, updateOn: "change"}]
+      name: [null, {validators: Validators.required, updateOn: "blur"}],
+      age: [null, {validators: [Validators.required, Validators.min(19)], updateOn: "blur"}],
+      birthdate: [null],
+      salary: [null, {validators: [Validators.required, Validators.min(726)], updateOn: "blur"}],
+      roles: [null, {validators: Validators.required, updateOn: "change"}]
     })
+    if (this.route.snapshot.queryParamMap.get('add') == null) {
+      this.userService.getUserById(this.id).then((user: User) => {
+        user.birthdate = formatDate(user.birthdate, 'yyyy-MM-dd', 'en-US')
+        this.form.setValue(user);
+      })
+    }
   }
 
   onSubmit() {
     if (this.id == null) {
-      this.userService.addUser(this.form.value);
+      this.userService.addUser(this.form.value).then(() => {
+        this.router.navigate(['/userslist.jhtml']);
+      });
     } else {
-      this.userService.updateUser(this.form.value);
+      this.userService.updateUser(this.form.value).then(() => {
+        this.router.navigate(['/userslist.jhtml']);
+      });
     }
-    this.router.navigate(['/userslist.jhtml']);
+
   }
 
 }

@@ -25,7 +25,10 @@ export class UsersListPageComponent {
   users: User[] = []
 
   constructor(private userService: UserService) {
-    this.users = this.userService.getAllUsers();
+    this.userService.getAllUsers().then((users: User[]) => {
+        this.users = users;
+      }
+    )
   }
 
 }

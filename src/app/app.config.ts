@@ -4,10 +4,11 @@ import {provideAnimationsAsync} from '@angular/platform-browser/animations/async
 import {providePrimeNG} from 'primeng/config';
 import {routes} from './app.routes';
 import Nora from '@primeng/themes/nora';
-import {provideHttpClient} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {TranslocoHttpLoader} from './transloco-loader';
 import {provideTransloco} from '@jsverse/transloco';
 import {cookiesStorage, provideTranslocoPersistLang} from '@jsverse/transloco-persist-lang';
+import {authTokenInterceptor} from './auth/authentication.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +20,7 @@ export const appConfig: ApplicationConfig = {
         preset: Nora
       }
     }),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authTokenInterceptor])),
     provideTransloco({
       config: {
         availableLangs: ['en', 'ru'],
